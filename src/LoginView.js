@@ -1,6 +1,6 @@
 class LoginView {
   constructor(onLogin) {
-    this.onLogin = onLogin
+    this._onLogin = onLogin
   }
 
   nameInput() {
@@ -9,7 +9,7 @@ class LoginView {
 
   onSubmit(event) {
     event.preventDefault();
-    this.onLogin(event.target.name.value)
+    this._onLogin(event.target.name.value)
   }
 
   submitButton() {
