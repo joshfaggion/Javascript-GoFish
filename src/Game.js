@@ -1,10 +1,10 @@
 class Game {
-  constructor(player) {
+  constructor(playerName) {
     this.players = [
       new Player(Names.name()),
       new Player(Names.name()),
       new Player(Names.name()),
-      new Player(player)]
+      new Player(playerName)]
     this.deck = new Deck()
     this.initGame()
   }

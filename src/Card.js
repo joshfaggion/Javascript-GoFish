@@ -11,4 +11,12 @@ class Card {
   static cardBackImg() {
     return '<img src=public/img/backs_blue.png />'
   }
+
+  returnRank() {
+    return this.rank
+  }
+
+  returnSuit() {
+    return this.suit
+  }
 }

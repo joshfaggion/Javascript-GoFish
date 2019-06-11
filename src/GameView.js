@@ -5,7 +5,8 @@ class GameView {
   }
 
   handHTML(player) {
-    if (player.name === this.game.players[3].name) {
+    const userIndex = 3
+    if (player.name === this.game.players[userIndex].name) {
       return player.cards.map(card => card.imgCompatible())
     }
     return player.cards.map(() => Card.cardBackImg())
