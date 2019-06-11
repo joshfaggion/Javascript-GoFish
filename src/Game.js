@@ -14,7 +14,20 @@ class Game {
     this.players.forEach(player => player.takeCard(this.deck.dealHand()))
   }
 
-  players() {
+  returnPlayers() {
     return this.players
   }
+
+  findPlayerByName(name) {
+    for (const player of this.players) {
+      if (name === player.name) {
+        return player
+      }
+    }
+    return 'That player was not found'
+  }
+
+  // runRound(requestingPlayer, targetPlayer, requestedRank) {
+  //
+  // }
 }
