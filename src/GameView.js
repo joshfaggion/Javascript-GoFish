@@ -5,7 +5,7 @@ class GameView {
   }
 
   handHTML(player) {
-    if (player.name == this.game.players[3].name) {
+    if (player.name === this.game.players[3].name) {
       return player.cards.map(card => card.imgCompatible())
     }
     return player.cards.map(() => Card.cardBackImg())
@@ -18,7 +18,7 @@ class GameView {
       Go Fish
     </h1>
     ${this.game.players.map((player) => {
-    const playerHTML = `<h2> ${player.name} </h2>`
+    const playerHTML = `<u> <h2> ${player.name} </h2> </u>`
     const handHTML = this.handHTML(player)
     return playerHTML + handHTML
   }).join(' ')}
