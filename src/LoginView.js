@@ -10,6 +10,7 @@ class LoginView {
   onSubmit(event) {
     event.preventDefault();
     this._onLogin(event.target.name.value)
+    document.querySelector('.user-form').remove()
   }
 
   submitButton() {

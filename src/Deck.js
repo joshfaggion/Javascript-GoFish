@@ -1,8 +1,8 @@
 class Deck {
   constructor() {
     this.deck = []
-    const suits = ['Hearts', 'Spades', 'Clubs', 'Diamonds'];
-    const values = ['Ace', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King'];
+    const suits = ['h', 's', 'c', 'd'];
+    const values = ['a', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k'];
     for (const suit of suits) {
       for (const value of values) {
         this.deck.push(new Card(suit, value))

@@ -1,5 +1,5 @@
 describe('Deck', () => {
-  it('can have 52 cards', () => {
+  it('can initialize with a full 52 card deck', () => {
     const deck = new Deck()
     expect(deck.cardAmount()).toEqual(52)
   });

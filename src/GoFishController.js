@@ -9,9 +9,13 @@ class GoFishController {
   }
 
   startGame(name) {
-    const player = new Player(name)
-    const game = new Game([player])
-    const view = new GameView(game)
+    const game = new Game(name)
+    const view = new GameView(this.endGame.bind(this), game)
+    view.draw(this.container())
+  }
+
+  endGame() {
+    const view = new EndView()
     view.draw(this.container())
   }
 }
