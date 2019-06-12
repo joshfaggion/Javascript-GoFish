@@ -4,12 +4,13 @@ class GameView {
     this.game = game
     this.selectedPlayer = ''
     this.selectedCard = ''
+    this.container = ''
   }
 
   renderHand(player) {
     const userIndex = 3
     if (player.name === this.game.players[userIndex].name) {
-      return player.cards.map(card => card.imgCompatible())
+      return player.cards.map(card => card.imgCompatible(this.selectedCard))
     }
     return player.cards.map(() => Card.cardBackImg())
   }
@@ -29,34 +30,43 @@ class GameView {
     if (player.returnName() === this.game.players[userIndex].returnName()) {
       id = 'player'
     }
-    const markup = `<div class='${id}-div' id='${player.returnName()}'>
+    if (player.returnName() === this.selectedPlayer) {
+      return `<div class='${id}-div selected' id='${player.returnName()}'>
+        ${this.renderTitle(player) + this.renderHand(player).join(' ')}
+      </div>
+      `
+    }
+    return `<div class='${id}-div' id='${player.returnName()}'>
       ${this.renderTitle(player) + this.renderHand(player).join(' ')}
-    </div>
-    `
-    return markup
+    </div>`
+  }
+
+  renderRequestButtonIfNeeded() {
+    if (this.selectedPlayer !== '' && this.selectedCard !== '') {
+      this.draw(document.querySelector('#main'))
+    }
   }
 
   cardClicked(clickedCard, cards) {
-    cards.forEach(card => card.classList.remove('selected'))
-    clickedCard.classList.add('selected')
     this.selectedCard = clickedCard.name
-    console.log(this.selectedCard)
+    this.draw(this.container)
   }
 
-  titleClicked(clickedPlayer, players) {
-    players.forEach(player => player.classList.remove('selected'))
-    clickedPlayer.classList.add('selected')
+  botClicked(clickedPlayer, players) {
     this.selectedPlayer = clickedPlayer.id
-    console.log(this.selectedPlayer)
+    this.draw(this.container)
   }
 
   draw(container) {
+    container.innerHTML = ''
     const element = document.createElement('div')
+    const buttonMarkup = '<div class=\'button-div\'><button class=\'request-button\'>Request Card</button></div>'
     const state = `
     <h1>
       Go Fish
     </h1>
     ${this.game.players.map(player => this.renderPlayer(player)).join('')}
+    ${(this.selectedPlayer !== '' && this.selectedCard !== '') ? buttonMarkup : ''}
     `
     element.innerHTML = state
     container.appendChild(element)
@@ -66,8 +76,9 @@ class GameView {
       card.onclick = this.cardClicked.bind(this, card, cards)
     })
     botDivs.forEach((bot) => {
-      bot.onclick = this.titleClicked.bind(this, bot, botDivs)
+      bot.onclick = this.botClicked.bind(this, bot, botDivs)
     })
+    this.container = container
     return element
   }
 }

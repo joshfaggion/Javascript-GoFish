@@ -4,7 +4,10 @@ class Card {
     this.suit = suit
   }
 
-  imgCompatible() {
+  imgCompatible(selectedCard) {
+    if (selectedCard === this.rank) {
+      return `<img name='${this.rank}' class='player-card selected' src=public/img/${this.suit}${this.rank}.png />`
+    }
     return `<img name='${this.rank}' class='player-card' src=public/img/${this.suit}${this.rank}.png />`
   }
 

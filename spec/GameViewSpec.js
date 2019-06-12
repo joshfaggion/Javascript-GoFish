@@ -33,14 +33,24 @@ describe('GameView', () => {
     it('will highlight a card on click', () => {
       const card = document.querySelector('.player-card')
       card.click()
-      expect(card.classList).toContain('selected')
+      expect(document.querySelector('.player-card').classList).toContain('selected')
       container.remove()
     });
 
     it('will highlight a title on click', () => {
       const botTitle = document.querySelector('.bot-div')
       botTitle.click()
-      expect(botTitle.classList).toContain('selected')
+      expect(document.querySelector('.bot-div').classList).toContain('selected')
+      container.remove()
+    });
+
+
+    it('will show the request button when both a title and card are selected', () => {
+      const botTitle = document.querySelector('.bot-div')
+      const playerCard = document.querySelector('.player-card')
+      botTitle.click()
+      playerCard.click()
+      expect(document.querySelector('.request-button').textContent).toEqual('Request Card')
       container.remove()
     });
   });
