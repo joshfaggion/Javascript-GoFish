@@ -15,15 +15,6 @@ class GameView {
     return player.cards.map(() => Card.cardBackImg())
   }
 
-
-  renderTitle(player) {
-    const userIndex = 3
-    if (player.returnName() === this.game.players[userIndex].returnName()) {
-      return `<u> <h2 class='player-title'> ${player.returnName()} </h2> </u>`
-    }
-    return `<u> <h2 class='bot-title'> ${player.name} </h2> </u>`
-  }
-
   renderPlayer(player) {
     let id = 'bot' // by default
     const userIndex = 3
@@ -32,12 +23,12 @@ class GameView {
     }
     if (player.returnName() === this.selectedPlayer) {
       return `<div class='${id}-div selected' id='${player.returnName()}'>
-        ${this.renderTitle(player) + this.renderHand(player).join(' ')}
+        <u><h2>${player.returnName()}</h2> </u> ${this.renderHand(player).join(' ')}
       </div>
       `
     }
     return `<div class='${id}-div' id='${player.returnName()}'>
-      ${this.renderTitle(player) + this.renderHand(player).join(' ')}
+      <u><h2>${player.returnName()}</h2> </u> ${this.renderHand(player).join(' ')}
     </div>`
   }
 
@@ -57,6 +48,11 @@ class GameView {
     this.draw(this.container)
   }
 
+  requestCardClicked() {
+    this.game.runRound(this.game.playerName, this.selectedPlayer, this.selectedCard)
+    this.draw(this.container)
+  }
+
   draw(container) {
     container.innerHTML = ''
     const element = document.createElement('div')
@@ -72,12 +68,17 @@ class GameView {
     container.appendChild(element)
     const cards = document.querySelectorAll('.player-card')
     const botDivs = document.querySelectorAll('.bot-div')
+
     cards.forEach((card) => {
       card.onclick = this.cardClicked.bind(this, card, cards)
     })
     botDivs.forEach((bot) => {
       bot.onclick = this.botClicked.bind(this, bot, botDivs)
     })
+    if (this.selectedPlayer !== '' && this.selectedCard !== '') {
+      const requestButton = document.querySelector('.request-button')
+      requestButton.onclick = this.requestCardClicked.bind(this)
+    }
     this.container = container
     return element
   }

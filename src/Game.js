@@ -1,5 +1,6 @@
 class Game {
   constructor(playerName) {
+    this.playerName = playerName
     this.players = [
       new Player(Names.name()),
       new Player(Names.name()),
