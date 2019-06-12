@@ -45,11 +45,11 @@ class Game {
         player.takeCard(this.deck.dealHand())
       }
       // If the deck runs out of cards, delete all the null cards added
-      for (const card in player.returnCards()) {
-        if (player.cards[card] === null) {
-          player.cards.splice(card, card)
-        }
-      }
+      // for (const card in player.returnCards()) {
+      //   if (player.cards[card] === null) {
+      //     player.cards.splice(card, card)
+      //   }
+      // }
     }
   }
 

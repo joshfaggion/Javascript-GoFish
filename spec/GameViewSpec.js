@@ -2,8 +2,7 @@ describe('GameView', () => {
   describe('on startGame', () => {
     beforeEach(() => {
       game = new Game('Joshua')
-      onEndGame = winner => winner.length
-      view = new GameView((onEndGame), game)
+      view = new GameView(null, game)
       container = document.createElement('div')
       document.body.appendChild(container)
       view.draw(container)
@@ -18,6 +17,30 @@ describe('GameView', () => {
       const cardElements = document.querySelectorAll('img')
       const numberOfTotalStartingCards = 20
       expect(cardElements.length).toEqual(numberOfTotalStartingCards)
+      container.remove()
+    });
+  });
+
+  describe('mid game', () => {
+    beforeEach(() => {
+      game = new Game('Joshua')
+      view = new GameView(null, game)
+      container = document.createElement('div')
+      document.body.appendChild(container)
+      view.draw(container)
+    });
+
+    it('will highlight a card on click', () => {
+      const card = document.querySelector('.player-card')
+      card.click()
+      expect(card.classList).toContain('selected')
+      container.remove()
+    });
+
+    it('will highlight a title on click', () => {
+      const botTitle = document.querySelector('.bot-div')
+      botTitle.click()
+      expect(botTitle.classList).toContain('selected')
       container.remove()
     });
   });
