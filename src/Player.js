@@ -18,11 +18,11 @@ class Player {
     return this.cards.length
   }
 
-  cards() {
+  returnCards() {
     return this.cards
   }
 
-  name() {
+  returnName() {
     return this.name
   }
 
@@ -41,10 +41,10 @@ class Player {
         matchingCards.push(card)
       }
     })
-    if (matchingCards === []) {
+    if (matchingCards.length === 0) {
       return 'Go Fish!'
     }
-    this.removeCardsByRank('10')
+    this.removeCardsByRank(desiredRank)
     return matchingCards
   }
 

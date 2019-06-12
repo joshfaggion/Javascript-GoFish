@@ -5,7 +5,7 @@ class Card {
   }
 
   imgCompatible() {
-    return `<img src=public/img/${this.rank}${this.suit}.png />`
+    return `<img name='${this.rank}' class='player-card' src=public/img/${this.suit}${this.rank}.png />`
   }
 
   static cardBackImg() {

@@ -5,7 +5,7 @@ class Deck {
     const values = ['a', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'j', 'q', 'k'];
     for (const suit of suits) {
       for (const value of values) {
-        this.deck.push(new Card(suit, value))
+        this.deck.push(new Card(value, suit))
       }
     }
   }
