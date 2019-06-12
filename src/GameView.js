@@ -23,19 +23,25 @@ class GameView {
     }
     if (player.returnName() === this.selectedPlayer) {
       return `<div class='${id}-div selected' id='${player.returnName()}'>
-        <u><h2>${player.returnName()}</h2> </u> ${this.renderHand(player).join(' ')}
+        <u><h3>${player.returnName()}</h3> </u> ${this.renderHand(player).join(' ')}
       </div>
       `
     }
     return `<div class='${id}-div' id='${player.returnName()}'>
-      <u><h2>${player.returnName()}</h2> </u> ${this.renderHand(player).join(' ')}
+      <u><h3>${player.returnName()}</h3> </u> ${this.renderHand(player).join(' ')}
     </div>`
   }
 
-  renderRequestButtonIfNeeded() {
-    if (this.selectedPlayer !== '' && this.selectedCard !== '') {
-      this.draw(document.querySelector('#main'))
-    }
+  bindCardsAndPlayers() {
+    const cards = document.querySelectorAll('.player-card')
+    const botDivs = document.querySelectorAll('.bot-div')
+
+    cards.forEach((card) => {
+      card.onclick = this.cardClicked.bind(this, card, cards)
+    })
+    botDivs.forEach((bot) => {
+      bot.onclick = this.botClicked.bind(this, bot, botDivs)
+    })
   }
 
   cardClicked(clickedCard, cards) {
@@ -49,7 +55,13 @@ class GameView {
   }
 
   requestCardClicked() {
-    this.game.runRound(this.game.playerName, this.selectedPlayer, this.selectedCard)
+    const result = this.game.runPlayerRound(this.game.playerName, this.selectedPlayer, this.selectedCard)
+    if (result.includes('fishing')) {
+      this.game.runAllBotTurns()
+    }
+    this.selectedCard = ''
+    this.selectedPlayer = ''
+    console.log(this.game.gameLog())
     this.draw(this.container)
   }
 
@@ -57,27 +69,18 @@ class GameView {
     container.innerHTML = ''
     const element = document.createElement('div')
     const buttonMarkup = '<div class=\'button-div\'><button class=\'request-button\'>Request Card</button></div>'
-    const state = `
-    <h1>
-      Go Fish
-    </h1>
+    const gameMarkup = `
+    <h1>Go Fish</h1>
     ${this.game.players.map(player => this.renderPlayer(player)).join('')}
     ${(this.selectedPlayer !== '' && this.selectedCard !== '') ? buttonMarkup : ''}
-    `
-    element.innerHTML = state
+    <div class='game-log'>
+    ${this.game.gameLog().join('<br>')}
+     </div>`
+    element.innerHTML = gameMarkup
     container.appendChild(element)
-    const cards = document.querySelectorAll('.player-card')
-    const botDivs = document.querySelectorAll('.bot-div')
-
-    cards.forEach((card) => {
-      card.onclick = this.cardClicked.bind(this, card, cards)
-    })
-    botDivs.forEach((bot) => {
-      bot.onclick = this.botClicked.bind(this, bot, botDivs)
-    })
-    if (this.selectedPlayer !== '' && this.selectedCard !== '') {
-      const requestButton = document.querySelector('.request-button')
-      requestButton.onclick = this.requestCardClicked.bind(this)
+    this.bindCardsAndPlayers()
+    if (document.querySelector('.request-button') !== null) {
+      document.querySelector('.request-button').onclick = this.requestCardClicked.bind(this)
     }
     this.container = container
     return element

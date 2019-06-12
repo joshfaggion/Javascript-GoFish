@@ -35,7 +35,7 @@ describe('Game', () => {
       player.setHand(card1)
       bot.setHand(card2)
       const result = game.runRequest(player, bot, 'j')
-      expect(result).toEqual('Jimmy failed to get a single dippety card! Go fishing in a lake, hippie!')
+      expect(result).toEqual('Jimmy went fishing!')
       expect(player.cardAmount()).toEqual(2)
     });
   });
@@ -55,9 +55,14 @@ describe('Game', () => {
       const card4 = new Card('10', 'd')
       player.setHand(card1)
       bot.setHand(card2, card3, card4)
-      game.runRound('Donald', bot.returnName(), '10')
+      game.runPlayerRound('Donald', bot.returnName(), '10')
       expect(player.returnPoints()).toEqual(1)
       expect(bot.cardAmount()).toEqual(5)
+    });
+
+    it('runs a bots turn', () => {
+      game.runBotRound(bot)
+      expect(bot.cardAmount()).toBeGreaterThan(5)
     });
   });
 });
