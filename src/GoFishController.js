@@ -14,8 +14,8 @@ class GoFishController {
     view.draw(this.container())
   }
 
-  endGame() {
-    const view = new EndView()
+  endGame(game) {
+    const view = new EndView(game)
     view.draw(this.container())
   }
 }

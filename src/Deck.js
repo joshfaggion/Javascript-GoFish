@@ -36,4 +36,8 @@ class Deck {
   dealHand() {
     return this.deck.splice(0, 5)
   }
+
+  setDeck(deck) {
+    this.deck = deck
+  }
 }

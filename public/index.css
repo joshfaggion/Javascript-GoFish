@@ -1,5 +1,6 @@
 img {
   margin-left: -30px;
+  width: 60px;
 }
 
 html, body {
@@ -30,7 +31,7 @@ body {
 }
 
 .player-div {
-  padding: 10px 20px 10px 20px;
+  padding: 5px 10px 5px 20px;
   text-align: center;
   /* This is good for when the console is open, if no console make it bigger */
   max-width: 100rem;

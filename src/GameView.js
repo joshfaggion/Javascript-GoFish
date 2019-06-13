@@ -5,6 +5,7 @@ class GameView {
     this.selectedPlayer = ''
     this.selectedCard = ''
     this.container = ''
+    this.onEndGame = onEndGame
   }
 
   renderHand(player) {
@@ -66,9 +67,13 @@ class GameView {
     if (result.includes('fishing') || user.cardAmount() === 0) {
       this.game.runAllBotTurns()
     }
-    this.selectedCard = ''
-    this.selectedPlayer = ''
-    this.draw(this.container)
+    if (this.game.anyPlayersHaveCards() === false) {
+      this.onEndGame(this.game)
+    } else {
+      this.selectedCard = ''
+      this.selectedPlayer = ''
+      this.draw(this.container)
+    }
   }
 
   draw(container) {
@@ -85,6 +90,5 @@ class GameView {
     container.appendChild(element)
     this.bindCardsAndPlayers()
     this.container = container
-    return element
   }
 }

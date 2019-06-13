@@ -114,4 +114,10 @@ class Game {
   gameLog() {
     return this.log
   }
+
+  finishGame() {
+    this.deck.setDeck([])
+    this.players.forEach(player => player.setHand([]))
+    return this
+  }
 }
