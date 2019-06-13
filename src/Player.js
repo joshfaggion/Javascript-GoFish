@@ -14,6 +14,10 @@ class Player {
     }
   }
 
+  returnPoints() {
+    return this.points
+  }
+
   matches() {
     return this.pairs
   }
@@ -62,9 +66,5 @@ class Player {
         this.points++
       }
     })
-  }
-
-  returnPoints() {
-    return this.points
   }
 }

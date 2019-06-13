@@ -120,4 +120,19 @@ class Game {
     this.players.forEach(player => player.setHand([]))
     return this
   }
+
+  results() {
+    return this.players.map(player => player.returnPoints())
+  }
+
+  winner() {
+    let winnersPoints = 0
+    let winner = ''
+    this.players.forEach((player) => {
+      if (player.returnPoints() > winnersPoints) {
+        [winnersPoints, winner] = [player.returnPoints(), player.returnName()]
+      }
+    })
+    return winner
+  }
 }

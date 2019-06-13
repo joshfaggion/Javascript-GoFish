@@ -21,4 +21,8 @@ class GoFishController {
 }
 
 window.controller = new GoFishController()
+// This is the normal controller setup
 window.onload = controller.login.bind(window.controller)
+
+// Uncommenting this line will make the page start at the endView
+// window.onload = controller.endGame.bind(window.controller, new Game('Joshua').finishGame())
