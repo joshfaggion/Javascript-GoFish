@@ -73,7 +73,6 @@ class Game {
         anyPlayers = true
       }
     }
-    console.log(`Players left - ${anyPlayers}`)
     return anyPlayers
   }
 
