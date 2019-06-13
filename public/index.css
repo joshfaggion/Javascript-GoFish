@@ -33,7 +33,7 @@ body {
   padding: 10px 20px 10px 20px;
   text-align: center;
   /* This is good for when the console is open, if no console make it bigger */
-  max-width: 300pt;
+  max-width: 500pt;
 
 }
 

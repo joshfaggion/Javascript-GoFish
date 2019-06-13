@@ -37,19 +37,22 @@ class GameView {
     const botDivs = document.querySelectorAll('.bot-div')
 
     cards.forEach((card) => {
-      card.onclick = this.cardClicked.bind(this, card, cards)
+      card.onclick = this.cardClicked.bind(this, card)
     })
     botDivs.forEach((bot) => {
-      bot.onclick = this.botClicked.bind(this, bot, botDivs)
+      bot.onclick = this.botClicked.bind(this, bot)
     })
+    if (document.querySelector('.request-button') !== null) {
+      document.querySelector('.request-button').onclick = this.requestCardClicked.bind(this)
+    }
   }
 
-  cardClicked(clickedCard, cards) {
+  cardClicked(clickedCard) {
     this.selectedCard = clickedCard.name
     this.draw(this.container)
   }
 
-  botClicked(clickedPlayer, players) {
+  botClicked(clickedPlayer) {
     this.selectedPlayer = clickedPlayer.id
     this.draw(this.container)
   }
@@ -61,7 +64,6 @@ class GameView {
     }
     this.selectedCard = ''
     this.selectedPlayer = ''
-    console.log(this.game.gameLog())
     this.draw(this.container)
   }
 
@@ -70,7 +72,6 @@ class GameView {
     const element = document.createElement('div')
     const buttonMarkup = '<div class=\'button-div\'><button class=\'request-button\'>Request Card</button></div>'
     const gameMarkup = `
-    <h1>Go Fish</h1>
     ${this.game.players.map(player => this.renderPlayer(player)).join('')}
     ${(this.selectedPlayer !== '' && this.selectedCard !== '') ? buttonMarkup : ''}
     <div class='game-log'>
@@ -79,9 +80,6 @@ class GameView {
     element.innerHTML = gameMarkup
     container.appendChild(element)
     this.bindCardsAndPlayers()
-    if (document.querySelector('.request-button') !== null) {
-      document.querySelector('.request-button').onclick = this.requestCardClicked.bind(this)
-    }
     this.container = container
     return element
   }

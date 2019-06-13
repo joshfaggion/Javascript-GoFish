@@ -26,7 +26,7 @@ class Game {
     const result = targetPlayer.cardInHand(requestedRank)
     if (result !== 'Go Fish!') {
       requestingPlayer.takeCard(result)
-      return `${requestingPlayer.returnName()} took all the ${requestedRank}s from ${targetPlayer.returnName()}!`
+      return `${requestingPlayer.returnName()} took all the ${requestedRank}'s from ${targetPlayer.returnName()}!`
     }
     // If the result is Go Fish!
     requestingPlayer.takeCard(this.deck.topCard())
