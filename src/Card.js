@@ -22,4 +22,8 @@ class Card {
   returnSuit() {
     return this.suit
   }
+
+  matchCardImg(card) {
+    return `<img name='${this.rank}' class='matched-card' src=public/img/${this.suit}${this.rank}.png />`
+  }
 }

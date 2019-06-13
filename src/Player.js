@@ -14,6 +14,10 @@ class Player {
     }
   }
 
+  matches() {
+    return this.pairs
+  }
+
   cardAmount() {
     return this.cards.length
   }
@@ -53,7 +57,7 @@ class Player {
       const matches = this.cards.filter(card => card.returnRank() === originalCard.returnRank())
       if (matches.length === 4) {
         // You only need the first card of the match to display
-        this.pairs.push(matches[0].returnRank())
+        this.pairs.push(matches[0])
         this.cards = this.cards.filter(card => !matches.includes(card))
         this.points++
       }

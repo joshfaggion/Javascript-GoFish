@@ -29,7 +29,9 @@ class Game {
       return `${requestingPlayer.returnName()} took all the ${requestedRank}'s from ${targetPlayer.returnName()}!`
     }
     // If the result is Go Fish!
-    requestingPlayer.takeCard(this.deck.topCard())
+    if (this.deck.cardAmount() > 0) {
+      requestingPlayer.takeCard(this.deck.topCard())
+    }
     return `${requestingPlayer.returnName()} went fishing!`
   }
 
@@ -43,16 +45,17 @@ class Game {
   }
 
   cardRefills() {
-    for (const player of this.players) {
-      if (player.cardAmount() === 0) {
-        player.takeCard(this.deck.dealHand())
+    if (this.deck.cardAmount() > 0) {
+      for (const player of this.players) {
+        if (player.cardAmount() === 0) {
+          player.takeCard(this.deck.dealHand())
+        }
       }
     }
   }
 
   runPlayerRound(playerName, targetName, rank) {
-    const player = this.findPlayerByName(playerName)
-    const target = this.findPlayerByName(targetName)
+    const [player, target] = [this.findPlayerByName(playerName), this.findPlayerByName(targetName)]
     const result = this.runRequest(player, target, rank)
     player.pairCards()
     this.cardRefills()
@@ -61,6 +64,17 @@ class Game {
       this.log.shift()
     }
     return result
+  }
+
+  anyPlayersHaveCards() {
+    let anyPlayers = false
+    for (const player of this.players) {
+      if (player.cardAmount() > 0) {
+        anyPlayers = true
+      }
+    }
+    console.log(`Players left - ${anyPlayers}`)
+    return anyPlayers
   }
 
   runBotRound(player) {
@@ -74,13 +88,26 @@ class Game {
     if (this.log.length > 10) {
       this.log.shift()
     }
+    player.pairCards()
     return result
   }
 
   runAllBotTurns() {
+    const user = this.findPlayerByName(this.playerName)
+    if (user.cardAmount() === 0) {
+      while (this.anyPlayersHaveCards()) {
+        for (const player of this.players) {
+          if (player.cardAmount() > 0) {
+            this.runBotRound(player)
+          }
+        }
+      }
+    }
     for (const player of this.players) {
       if (player.returnName() !== this.playerName) {
-        this.runBotRound(player)
+        if (player.cardAmount() > 0) {
+          this.runBotRound(player)
+        }
       }
     }
   }

@@ -8,6 +8,10 @@ describe('GameView', () => {
       view.draw(container)
     });
 
+    afterEach(() => {
+      container.remove()
+    });
+
     it('will place the player\'s name on the screen', () => {
       expect(container.textContent).toContain('Joshua')
       container.remove()
@@ -16,7 +20,7 @@ describe('GameView', () => {
     it('will render all 20 cards in play at the beginning of the game', () => {
       const cardElements = document.querySelectorAll('img')
       const numberOfTotalStartingCards = 20
-      expect(cardElements.length).toEqual(numberOfTotalStartingCards)
+      expect(document.querySelectorAll('img').length).toEqual(numberOfTotalStartingCards)
       container.remove()
     });
   });
@@ -30,18 +34,20 @@ describe('GameView', () => {
       view.draw(container)
     });
 
+    afterEach(() => {
+      container.remove()
+    });
+
     it('will highlight a card on click', () => {
       const card = document.querySelector('.player-card')
       card.click()
       expect(document.querySelector('.player-card').classList).toContain('selected')
-      container.remove()
     });
 
     it('will highlight a title on click', () => {
       const botTitle = document.querySelector('.bot-div')
       botTitle.click()
       expect(document.querySelector('.bot-div').classList).toContain('selected')
-      container.remove()
     });
 
 
@@ -51,7 +57,6 @@ describe('GameView', () => {
       botTitle.click()
       playerCard.click()
       expect(document.querySelector('.request-button').textContent).toEqual('Request Card')
-      container.remove()
     });
   });
 });
