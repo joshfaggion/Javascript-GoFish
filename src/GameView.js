@@ -84,6 +84,7 @@ class GameView {
     ${this.game.players.map(player => this.renderPlayer(player)).join('')}
     ${(this.selectedPlayer !== '' && this.selectedCard !== '') ? buttonMarkup : ''}
     <div class='game-log'>
+    <h3>Game Log:</h3>
     ${this.game.gameLog().join('<br>')}
      </div>`
     element.innerHTML = gameMarkup

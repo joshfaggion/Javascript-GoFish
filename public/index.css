@@ -24,6 +24,14 @@ body {
   max-width: inherit;
 }
 
+.game-log {
+  border-radius: 15px;
+  border: 4px solid #467edb;
+  background-color: #8bade5;
+  padding: 5px 10px 10px 10px;
+
+}
+
 .bot-div {
   padding: 10px 10px 10px 30px;
   text-align: center;
@@ -31,7 +39,7 @@ body {
 }
 
 .player-div {
-  padding: 5px 10px 5px 20px;
+  padding: 5px 10px 10px 20px;
   text-align: center;
   /* This is good for when the console is open, if no console make it bigger */
   max-width: 100rem;

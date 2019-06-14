@@ -51,12 +51,19 @@ describe('GameView', () => {
     });
 
 
-    it('will show the request button when both a title and card are selected', () => {
+    it('will show the request a card from another play on click', () => {
+      game.players[0].cards = [new Card('10', 's')]
+      game.players[1].cards = [new Card('8', 's')]
+      game.players[2].cards = [new Card('9', 'h')]
+      game.players[3].cards = [new Card('j', 'c')]
       const botTitle = document.querySelector('.bot-div')
       const playerCard = document.querySelector('.player-card')
+      const originalCardNumber = 1
       botTitle.click()
       playerCard.click()
       expect(document.querySelector('.request-button').textContent).toEqual('Request Card')
+      document.querySelector('.request-button').click()
+      expect(document.querySelectorAll('.player-card').length).toBeGreaterThan(originalCardNumber)
     });
   });
 });
